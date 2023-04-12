@@ -1,0 +1,49 @@
+{
+  "name": "@actions/test-action",
+  "version": "1.0.0",
+  "description": "Test Action",
+  "author": {
+    "name": "Jan Günter",
+    "email": "jan.guenter@googlemail.com"
+  },
+  "keywords": [
+    "github",
+    "actions"
+  ],
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/test-action",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "!.DS_Store"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jan-guenter/actions-class.git",
+    "directory": "packages/test-action"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "tsc": "tsc",
+    "action-yml": "generate-action-yml TestAction"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-guenter/actions-class/issues"
+  },
+  "dependencies": {
+    "@actions/action-class": "workspace:^",
+    "@actions/action-yml": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.23"
+  }
+}

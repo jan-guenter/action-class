@@ -1,0 +1,56 @@
+{
+  "name": "@actions/action-class",
+  "version": "1.0.0",
+  "description": "Framework to write object oriented GitHub Actions",
+  "author": {
+    "name": "Jan Günter",
+    "email": "jan.guenter@googlemail.com"
+  },
+  "keywords": [
+    "github",
+    "actions"
+  ],
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
+  "license": "MIT",
+  "main": "lib/action.js",
+  "types": "lib/action.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "!.DS_Store"
+  ],
+  "bin": {
+    "generate-action-yml": "lib/generate-action-yml.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jan-guenter/actions-class.git",
+    "directory": "packages/actions-class"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "tsc": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-guenter/actions-class/issues"
+  },
+  "dependencies": {
+    "@actions/action-yml": "workspace:^",
+    "@actions/core": "^1.10.0",
+    "find-up": "^6.3.0",
+    "js-yaml": "^4.1.0",
+    "yargs": "^17.7.1"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^16.18.23",
+    "@types/yargs": "^17.0.24"
+  }
+}

@@ -1,0 +1,45 @@
+name: Build and Test
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v2
+
+    - name: pnpm install
+      run: pnpm install -r
+
+    - name: Build
+      run: pnpm build
+
+    - name: Lint
+      run: pnpm check:lint
+
+    - name: Check Format
+      run: pnpm check:format
+
+    - name: Test
+      run: pnpm check:test

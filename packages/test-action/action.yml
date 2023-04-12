@@ -1,0 +1,40 @@
+name: name
+description: description
+author: Jan Günter <jan.guenter@googlemail.com>
+inputs:
+  a:
+    description: description a
+    required: true
+  b:
+    description: description b
+  c:
+    description: description c
+    default: 'true'
+  d:
+    description: description d
+    default: '123'
+  e:
+    description: description e
+    deprecationMessage: e is deprecated
+  f:
+    description: description e
+    required: true
+  g:
+    description: description g
+    required: true
+outputs:
+  a:
+    description: description a
+  b:
+    description: description b
+  c:
+    description: description c
+  d:
+    description: description d
+  e:
+    description: description e
+runs:
+  using: node16
+  main: lib/index.js
+  pre: lib/index.js
+  post: lib/index.js

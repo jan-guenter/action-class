@@ -1,0 +1,46 @@
+{
+  "name": "@actions/action-yml",
+  "version": "1.0.0",
+  "description": "Typed representation of the action.yml structure",
+  "author": {
+    "name": "Jan Günter",
+    "email": "jan.guenter@googlemail.com"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "yaml"
+  ],
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "type": "module",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib",
+    "!.DS_Store"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jan-guenter/actions-class.git",
+    "directory": "packages/action-yml"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "tsc": "tsc"
+  },
+  "bugs": {
+    "url": "https://github.com/jan-guenter/actions-class/issues"
+  },
+  "devDependencies": {
+    "@types/feather-icons": "^4.29.1",
+    "@types/node": "^16.18.23"
+  }
+}

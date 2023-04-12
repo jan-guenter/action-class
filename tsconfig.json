@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "Node16",
+    "strict": true,
+    "declaration": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "types" : ["node"]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/__mocks__/*"
+  ]
+}
