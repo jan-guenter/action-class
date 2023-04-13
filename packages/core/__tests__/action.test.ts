@@ -1,16 +1,9 @@
 import { action, runAction } from '../src/action';
 import * as core from '@actions/core';
-import * as path from 'path';
-import * as fs from 'fs';
 import * as process from 'process';
 
-describe('@actions/action-class', () => {
-  beforeAll(() => {
-    const filePath = path.join(__dirname, `test`);
-    if (!fs.existsSync(filePath)) {
-      fs.mkdirSync(filePath);
-    }
-  });
+describe('@action-class/core', () => {
+  beforeAll(() => {});
 
   beforeEach(() => {
     process.env['ACTION_YAML_GENERATOR'] = undefined;

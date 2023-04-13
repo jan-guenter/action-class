@@ -6,3 +6,4 @@ packages/*/__tests__/_temp/
 *.xar
 packages/*/audit.json
 .idea/
+*.tsbuildinfo

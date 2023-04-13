@@ -1,4 +1,4 @@
-import { action, runAction } from '@actions/action-class';
+import { action, runAction } from '@action-class/core';
 
 interface Repo {
   owner: string;
@@ -25,7 +25,7 @@ export class TestAction extends action({
     },
     e: { description: 'description e', type: 'number', deprecationMessage: 'e is deprecated' },
     f: {
-      description: 'description e',
+      description: 'description f',
       required: true,
       converter: {
         fromInput: (value: string) => JSON.parse(value) as Repo,

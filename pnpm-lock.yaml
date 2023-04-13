@@ -35,10 +35,19 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
 
-  packages/action-class:
+  packages/action-yml:
+    devDependencies:
+      '@types/feather-icons':
+        specifier: ^4.29.1
+        version: 4.29.1
+      '@types/node':
+        specifier: ^16.18.23
+        version: 16.18.23
+
+  packages/core:
     dependencies:
-      '@actions/action-yml':
-        specifier: workspace:^
+      '@action-class/action-yml':
+        specifier: ^1.0.0
         version: link:../action-yml
       '@actions/core':
         specifier: ^1.10.0
@@ -63,23 +72,14 @@ importers:
         specifier: ^17.0.24
         version: 17.0.24
 
-  packages/action-yml:
-    devDependencies:
-      '@types/feather-icons':
-        specifier: ^4.29.1
-        version: 4.29.1
-      '@types/node':
-        specifier: ^16.18.23
-        version: 16.18.23
-
-  packages/test-action:
+  packages/example-action:
     dependencies:
-      '@actions/action-class':
-        specifier: workspace:^
-        version: link:../action-class
-      '@actions/action-yml':
-        specifier: workspace:^
+      '@action-class/action-yml':
+        specifier: ^1.0.0
         version: link:../action-yml
+      '@action-class/core':
+        specifier: ^1.0.0
+        version: link:../core
     devDependencies:
       '@types/node':
         specifier: ^16.18.23

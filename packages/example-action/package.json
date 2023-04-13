@@ -1,19 +1,21 @@
 {
-  "name": "@actions/action-class",
+  "name": "@action-class/example-action",
   "version": "1.0.0",
-  "description": "Framework to write object oriented GitHub Actions",
+  "description": "An Example Action using @action-class/core",
   "author": {
     "name": "Jan Günter",
     "email": "jan.guenter@googlemail.com"
   },
+  "private": true,
   "keywords": [
     "github",
-    "actions"
+    "actions",
+    "example"
   ],
-  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/example-action",
   "license": "MIT",
-  "main": "lib/action.js",
-  "types": "lib/action.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib",
@@ -23,34 +25,28 @@
     "lib",
     "!.DS_Store"
   ],
-  "bin": {
-    "generate-action-yml": "lib/generate-action-yml.js"
-  },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jan-guenter/actions-class.git",
-    "directory": "packages/actions-class"
+    "directory": "packages/example-action"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "action-yml": "generate-action-yml TestAction",
+    "build": "npm run tsc && npm run action-yml"
   },
   "bugs": {
     "url": "https://github.com/jan-guenter/actions-class/issues"
   },
   "dependencies": {
-    "@actions/action-yml": "workspace:^",
-    "@actions/core": "^1.10.0",
-    "find-up": "^6.3.0",
-    "js-yaml": "^4.1.0",
-    "yargs": "^17.7.1"
+    "@action-class/core": "^1.0.0",
+    "@action-class/action-yml": "^1.0.0"
   },
   "devDependencies": {
-    "@types/js-yaml": "^4.0.5",
-    "@types/node": "^16.18.23",
-    "@types/yargs": "^17.0.24"
+    "@types/node": "^16.18.23"
   }
 }

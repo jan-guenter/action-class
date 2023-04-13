@@ -1,5 +1,5 @@
 {
-  "name": "@actions/action-yml",
+  "name": "@action-class/action-yml",
   "version": "1.0.0",
   "description": "Typed representation of the action.yml structure",
   "author": {
@@ -11,7 +11,7 @@
     "actions",
     "yaml"
   ],
-  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/action-yml",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

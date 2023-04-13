@@ -3,11 +3,11 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import yargs from 'yargs';
 import * as yaml from 'js-yaml';
-import type { ActionYml } from '@actions/action-yml';
+import type { ActionYml } from '@action-class/action-yml';
 import process from 'process';
 import { findUp } from 'find-up';
 
-process.env.ACTION_YAML_GENERATOR = 'true';
+process.env['ACTION_YAML_GENERATOR'] = 'true';
 
 const argSpec = yargs(process.argv.slice(2))
   .scriptName('generate-action-yml')

@@ -2,7 +2,7 @@
 import { isNativeError } from 'util/types';
 import type { InputOptions } from '@actions/core';
 import * as core from '@actions/core';
-import type { ActionYml, ActionYmlBranding, ActionYmlInputData, ActionYmlOutputData } from '@actions/action-yml';
+import type { ActionYml, ActionYmlBranding, ActionYmlInputData, ActionYmlOutputData } from '@action-class/action-yml';
 import * as process from 'process';
 
 interface ActionInputDescriptorBase<T> {
@@ -361,4 +361,4 @@ export async function runAction<TInputs, TOutputs, T extends new (...args: any[]
   }
 }
 
-export type { ActionYml, ActionYmlOutputData, ActionYmlInputData, ActionYmlBranding } from '@actions/action-yml';
+export type { ActionYml, ActionYmlOutputData, ActionYmlInputData, ActionYmlBranding } from '@action-class/action-yml';

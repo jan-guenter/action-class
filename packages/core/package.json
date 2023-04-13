@@ -1,7 +1,7 @@
 {
-  "name": "@actions/test-action",
+  "name": "@action-class/core",
   "version": "1.0.0",
-  "description": "Test Action",
+  "description": "Framework to write object oriented GitHub Actions",
   "author": {
     "name": "Jan Günter",
     "email": "jan.guenter@googlemail.com"
@@ -10,10 +10,10 @@
     "github",
     "actions"
   ],
-  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/test-action",
+  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/action.js",
+  "types": "lib/action.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib",
@@ -23,27 +23,34 @@
     "lib",
     "!.DS_Store"
   ],
+  "bin": {
+    "generate-action-yml": "lib/generate-action-yml.js"
+  },
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jan-guenter/actions-class.git",
-    "directory": "packages/test-action"
+    "directory": "packages/core"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "tsc": "tsc",
-    "action-yml": "generate-action-yml TestAction"
+    "tsc": "tsc"
   },
   "bugs": {
     "url": "https://github.com/jan-guenter/actions-class/issues"
   },
   "dependencies": {
-    "@actions/action-class": "workspace:^",
-    "@actions/action-yml": "workspace:^"
+    "@action-class/action-yml": "^1.0.0",
+    "@actions/core": "^1.10.0",
+    "find-up": "^6.3.0",
+    "js-yaml": "^4.1.0",
+    "yargs": "^17.7.1"
   },
   "devDependencies": {
-    "@types/node": "^16.18.23"
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^16.18.23",
+    "@types/yargs": "^17.0.24"
   }
 }

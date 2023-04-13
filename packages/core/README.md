@@ -1,23 +1,23 @@
-# @actions/action-class
+# `@action-class/core`
 
-A library for creating GitHub Actions with a class-based approach. This library simplifies the process of defining inputs, outputs, and other action properties, as well as handling the pre, main, and post steps of the action.
+> A library for creating GitHub Actions with a class-based approach. This library simplifies the process of defining inputs, outputs, and other action properties, as well as handling the pre, main, and post steps of the action.
 
 ## Installation
 
 ```bash
-npm install @actions/action-class
+npm install @action-class/core
 ```
 
 ## Usage
 
-Create a new GitHub Action class by extending the constructor returned by the `action` call from '@actions/action-class'.
+Create a new GitHub Action class by extending the constructor returned by the `action` call from '@action-class/core'.
 Define action properties, inputs, and outputs in the `action` call argument.
 To complete a runnable action you need to implement at least a `main` and optionally a `pre`, and a `post` method.
 
 ## Example
 
 ```typescript
-import { action, runAction } from '@actions/action-class';
+import { action, runAction } from '@action-class/core';
 
 export class ExampleAction extends action({
   name: 'name',
@@ -161,7 +161,7 @@ async main(): Promise<void> {
 
 ## Generating the `action.yml` with `generate-action-yml` tool
 
-`generate-action-ym`l is a utility script provided by the '@actions/action-yml' package.
+`generate-action-ym`l is a utility script provided by the '@action-class/action-yml' package.
 It helps you automatically generate an `action.yml` file from your action class definition.
 This ensures that your action's metadata stays in sync with the actual code, reducing the chance of errors and inconsistencies.
 
