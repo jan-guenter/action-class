@@ -10,29 +10,31 @@ updates:
     schedule:
       interval: daily
     ignore:
-      - dependency-name: "@types/node"
-        update-types: [ "version-update:semver-major" ]
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'glob'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: npm
     directory: /packages/core
     schedule:
       interval: daily
     ignore:
-      - dependency-name: "@types/node"
-        update-types: [ "version-update:semver-major" ]
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: npm
     directory: /packages/action-yml
     schedule:
       interval: daily
     ignore:
-      - dependency-name: "@types/node"
-        update-types: [ "version-update:semver-major" ]
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: npm
     directory: /packages/example-action
     schedule:
       interval: daily
     ignore:
-      - dependency-name: "@types/node"
-        update-types: [ "version-update:semver-major" ]
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']

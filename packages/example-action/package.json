@@ -14,8 +14,8 @@
   ],
   "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/example-action",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/example-action.js",
+  "types": "lib/example-action.d.ts",
   "type": "module",
   "directories": {
     "lib": "lib",
@@ -36,17 +36,17 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "tsc": "tsc",
-    "action-yml": "generate-action-yml TestAction",
+    "action-yml": "generate-action-yml ExampleAction",
     "build": "npm run tsc && npm run action-yml"
   },
   "bugs": {
     "url": "https://github.com/jan-guenter/actions-class/issues"
   },
   "dependencies": {
-    "@action-class/core": "^1.0.0",
-    "@action-class/action-yml": "^1.0.0"
+    "@action-class/action-yml": "workspace:^",
+    "@action-class/core": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "^16.18.23"
+    "@types/node": "~16.18.23"
   }
 }

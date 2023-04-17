@@ -1,10 +1,11 @@
-import { action, runAction } from '../src/action';
-import * as core from '@actions/core';
+import { jest, describe, beforeEach, test, afterEach, expect } from '@jest/globals';
 import * as process from 'process';
 
-describe('@action-class/core', () => {
-  beforeAll(() => {});
+jest.mock('@actions/core');
+const core = jest.mocked(await import('@actions/core'));
+const { action, runAction } = await import('../src/index.js');
 
+describe('action-class', () => {
   beforeEach(() => {
     process.env['ACTION_YAML_GENERATOR'] = undefined;
   });
@@ -13,9 +14,11 @@ describe('@action-class/core', () => {
     jest.restoreAllMocks();
   });
 
-  it('has correct actionInfo', () => {
+  test('has correct actionInfo', () => {
     class TestAction extends action({ name: 'name', description: 'description' }) {
-      async main(): Promise<void> {}
+      async main(): Promise<void> {
+        return;
+      }
     }
 
     expect(TestAction.actionInfo).toStrictEqual({
@@ -24,9 +27,11 @@ describe('@action-class/core', () => {
     });
   });
 
-  it('has correct actionInfo with author', () => {
+  test('has correct actionInfo with author', () => {
     class TestAction extends action({ name: 'name', description: 'description', author: 'author' }) {
-      async main(): Promise<void> {}
+      async main(): Promise<void> {
+        return;
+      }
     }
 
     expect(TestAction.actionInfo).toStrictEqual({
@@ -36,7 +41,7 @@ describe('@action-class/core', () => {
     });
   });
 
-  it('fails on exceptions in main()', async () => {
+  test('fails on exceptions in main()', async () => {
     const ex = new Error('error message');
 
     class TestAction extends action({}) {
@@ -45,14 +50,12 @@ describe('@action-class/core', () => {
       }
     }
 
-    const setFailed = jest.spyOn(core, 'setFailed');
-
     await runAction(TestAction);
 
-    expect(setFailed).toHaveBeenCalledWith(ex);
+    expect(core.setFailed).toHaveBeenCalledWith(ex);
   });
 
-  it('fails on exceptions in constructor', async () => {
+  test('fails on exceptions in constructor', async () => {
     const ex = new Error('error message');
 
     class TestAction extends action({}) {
@@ -60,22 +63,22 @@ describe('@action-class/core', () => {
         super();
         throw ex;
       }
-      async main(): Promise<void> {}
+      async main(): Promise<void> {
+        return;
+      }
     }
-
-    const setFailed = jest.spyOn(core, 'setFailed');
 
     await runAction(TestAction);
 
-    expect(setFailed).toHaveBeenCalledWith(ex);
+    expect(core.setFailed).toHaveBeenCalledWith(ex);
   });
 
-  it('parses inputs correctly', async () => {
-    let parsedInputs: unknown;
+  test('parses inputs correctly', async () => {
+    let parsedInputs: unknown = {};
 
     class TestAction extends action({
       inputs: {
-        'a': { description: '', type: 'string' },
+        'a': { description: '' },
         'b': { description: '', type: 'string[]', trimWhitespace: false },
         'c': { description: '', type: 'boolean' },
         'd': { description: '', type: 'number' },
@@ -96,7 +99,7 @@ describe('@action-class/core', () => {
       }
     }
 
-    const getInput = jest.spyOn(core, 'getInput').mockImplementation((name: string) => {
+    core.getInput.mockImplementation((name: string) => {
       switch (name) {
         case 'a':
           return 'foo';
@@ -110,24 +113,20 @@ describe('@action-class/core', () => {
           return '';
       }
     });
-    const getMultilineInput = jest.spyOn(core, 'getMultilineInput').mockReturnValueOnce(['foo', 'bar ', ' baz']);
-    const getBooleanInput = jest.spyOn(core, 'getBooleanInput').mockReturnValueOnce(true);
-
-    const setFailed = jest.spyOn(core, 'setFailed');
-    const error = jest.spyOn(core, 'error');
-    const warning = jest.spyOn(core, 'warning');
+    core.getMultilineInput.mockReturnValue(['foo', 'bar ', ' baz']);
+    core.getBooleanInput.mockReturnValueOnce(true);
 
     await runAction(TestAction);
 
-    expect(getInput).toHaveBeenCalledTimes(6);
-    expect(getInput).toHaveBeenCalledWith('a', {});
-    expect(getInput).toHaveBeenCalledWith('d', {});
-    expect(getInput).toHaveBeenCalledWith('e', {});
-    expect(getInput).toHaveBeenCalledWith('defaulted', {});
-    expect(getInput).toHaveBeenCalledWith('complex input-name', {});
-    expect(getInput).toHaveBeenCalledWith('deprecated', {});
-    expect(getMultilineInput).toHaveBeenCalledWith('b', { trimWhitespace: false });
-    expect(getBooleanInput).toHaveBeenCalledWith('c', {});
+    expect(core.getInput).toHaveBeenCalledTimes(6);
+    expect(core.getInput).toHaveBeenCalledWith('a', {});
+    expect(core.getInput).toHaveBeenCalledWith('d', {});
+    expect(core.getInput).toHaveBeenCalledWith('e', {});
+    expect(core.getInput).toHaveBeenCalledWith('defaulted', {});
+    expect(core.getInput).toHaveBeenCalledWith('complex input-name', {});
+    expect(core.getInput).toHaveBeenCalledWith('deprecated', {});
+    expect(core.getMultilineInput).toHaveBeenCalledWith('b', { trimWhitespace: false });
+    expect(core.getBooleanInput).toHaveBeenCalledWith('c', {});
 
     expect(parsedInputs).toStrictEqual({
       'a': 'foo',
@@ -139,36 +138,34 @@ describe('@action-class/core', () => {
       'complex input-name': 'bar',
     });
 
-    expect(setFailed).toHaveBeenCalledTimes(0);
-    expect(error).toHaveBeenCalledTimes(0);
-    expect(warning).toHaveBeenCalledTimes(0);
+    expect(core.setFailed).toHaveBeenCalledTimes(0);
+    expect(core.error).toHaveBeenCalledTimes(0);
+    expect(core.warning).toHaveBeenCalledTimes(0);
   });
 
-  it('warns on use of deprecated input', async () => {
+  test('warns on use of deprecated input', async () => {
     class TestAction extends action({
       inputs: {
         deprecated: { description: '', type: 'string', deprecationMessage: 'deprecation message' },
       },
     }) {
-      async main(): Promise<void> {}
+      async main(): Promise<void> {
+        return;
+      }
     }
 
-    const getInput = jest.spyOn(core, 'getInput').mockReturnValue('foo');
-
-    const setFailed = jest.spyOn(core, 'setFailed');
-    const error = jest.spyOn(core, 'error');
-    const warning = jest.spyOn(core, 'warning');
+    core.getInput.mockReturnValue('foo');
 
     await runAction(TestAction);
 
-    expect(getInput).toHaveBeenCalledWith('deprecated', {});
-    expect(setFailed).toHaveBeenCalledTimes(0);
-    expect(error).toHaveBeenCalledTimes(0);
-    expect(warning).toHaveBeenCalledWith("Input 'deprecated' is deprecated: deprecation message");
+    expect(core.getInput).toHaveBeenCalledWith('deprecated', {});
+    expect(core.setFailed).toHaveBeenCalledTimes(0);
+    expect(core.error).toHaveBeenCalledTimes(0);
+    expect(core.warning).toHaveBeenCalledWith("Input 'deprecated' is deprecated: deprecation message");
   });
 
-  it('handles outputs correctly', async () => {
-    let finalOutputs: unknown;
+  test('handles outputs correctly', async () => {
+    let finalOutputs: unknown = {};
 
     class TestAction extends action({
       outputs: {
@@ -176,7 +173,7 @@ describe('@action-class/core', () => {
         b: { description: 'description b', type: 'boolean' },
         c: { description: 'description c', type: 'number' },
         d: { description: 'description d', converter: (value: Date) => value.toISOString() },
-        e: { description: 'description e', type: 'number', initValue: 123 },
+        e: { description: 'description e', initValue: 123 },
       },
     }) {
       async main(): Promise<void> {
@@ -191,21 +188,15 @@ describe('@action-class/core', () => {
       }
     }
 
-    const setOutput = jest.spyOn(core, 'setOutput');
-
-    const setFailed = jest.spyOn(core, 'setFailed');
-    const error = jest.spyOn(core, 'error');
-    const warning = jest.spyOn(core, 'warning');
-
     await runAction(TestAction);
 
-    expect(setOutput).toHaveBeenCalledTimes(6);
-    expect(setOutput).toHaveBeenCalledWith('e', '123');
-    expect(setOutput).toHaveBeenCalledWith('a', 'foo');
-    expect(setOutput).toHaveBeenCalledWith('b', 'true');
-    expect(setOutput).toHaveBeenCalledWith('c', '123');
-    expect(setOutput).toHaveBeenCalledWith('d', '1984-02-22T13:59:00.000Z');
-    expect(setOutput).toHaveBeenCalledWith('e', '456');
+    expect(core.setOutput).toHaveBeenCalledTimes(6);
+    expect(core.setOutput).toHaveBeenCalledWith('e', '123');
+    expect(core.setOutput).toHaveBeenCalledWith('a', 'foo');
+    expect(core.setOutput).toHaveBeenCalledWith('b', 'true');
+    expect(core.setOutput).toHaveBeenCalledWith('c', '123');
+    expect(core.setOutput).toHaveBeenCalledWith('d', '1984-02-22T13:59:00.000Z');
+    expect(core.setOutput).toHaveBeenCalledWith('e', '456');
 
     expect(finalOutputs).toStrictEqual({
       a: 'foo',
@@ -215,8 +206,8 @@ describe('@action-class/core', () => {
       e: 456,
     });
 
-    expect(setFailed).toHaveBeenCalledTimes(0);
-    expect(error).toHaveBeenCalledTimes(0);
-    expect(warning).toHaveBeenCalledTimes(0);
+    expect(core.setFailed).toHaveBeenCalledTimes(0);
+    expect(core.error).toHaveBeenCalledTimes(0);
+    expect(core.warning).toHaveBeenCalledTimes(0);
   });
 });

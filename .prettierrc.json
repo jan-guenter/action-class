@@ -9,7 +9,6 @@
   "arrowParens": "avoid",
   "bracketSameLine": true,
   "endOfLine": "lf",
-  "proseWrap": "always",
-  "quoteProps": "consistent",
-  "parser": "typescript"
+  "proseWrap": "preserve",
+  "quoteProps": "consistent"
 }

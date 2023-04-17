@@ -68,8 +68,8 @@ export type ActionYmlBrandingIconExcludes =
 export type ActionYmlBrandingIconNames = Exclude<FeatherIconNames, ActionYmlBrandingIconExcludes>;
 
 export interface ActionYmlBranding {
-  icon?: ActionYmlBrandingIconNames;
-  color?: ActionYmlBrandingColors;
+  icon: ActionYmlBrandingIconNames;
+  color: ActionYmlBrandingColors;
 }
 
 export interface ActionYmlCommon {

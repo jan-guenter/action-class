@@ -7,3 +7,6 @@ packages/*/__tests__/_temp/
 packages/*/audit.json
 .idea/
 *.tsbuildinfo
+megalinter-reports/
+coverage/
+reports/

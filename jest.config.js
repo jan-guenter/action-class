@@ -1,13 +1,8 @@
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  clearMocks: true,
-  moduleFileExtensions: ['js', 'ts'],
+  preset: 'ts-jest/presets/default-esm',
+  resolver: 'ts-jest-resolver',
   roots: ['<rootDir>/packages'],
   testEnvironment: 'node',
-  testMatch: ['**/__tests__/*.test.ts'],
-  transform: {
-    '^.+\\.ts$': ['ts-jest', {
-      tsconfig: 'tsconfig.test.json',
-    }],
-  },
   verbose: true,
 };

@@ -1,7 +1,8 @@
 # `@action-class/action-yml`
 
-> Typed representation of the `action.yml` structure  
-> See [Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#about-yaml-syntax-for-github-actions) for more information about the `action.yml` structure.
+> Typed representation of the `action.yml` structure. See
+> [Metadata syntax for GitHub Actions](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions)
+> for more information about the `action.yml` structure.
 
 ## Usage
 
@@ -28,7 +29,9 @@ import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
 import type { ActionYml } from '@action-class/action-yml';
 
-const actionYml = yaml.load(
-  await fs.readFile('action.yml', 'utf8'),
-) as ActionYml;
+const actionYml = yaml.load(await fs.readFile('action.yml', 'utf8')) as ActionYml;
 ```
+
+## License
+
+This library is published under the [MIT license](LICENSE).

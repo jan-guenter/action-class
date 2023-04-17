@@ -8,6 +8,8 @@ on:
     paths-ignore:
       - '**.md'
 
+permissions: read-all
+
 jobs:
   build:
     name: Build
@@ -18,28 +20,75 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Setup Node.js 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
 
-    - name: pnpm install
-      run: pnpm install -r
+      - name: Determine pnpm store location
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        id: pnpm-store-unix
+        run: echo "pnpm-store=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
-    - name: Build
-      run: pnpm build
+      - name: Determine pnpm store location
+        if: runner.os == 'Windows'
+        id: pnpm-store-windows
+        run: |
+          $pnpmStorePath=pnpm store path
+          Add-Content -Path "$env:GITHUB_OUTPUT" -Value "pnpm-store=$pnpmStorePath"
 
-    - name: Lint
-      run: pnpm check:lint
+      - name: Cache pnpm modules
+        if: steps.pnpm-store-unix.outcome == 'success'
+        uses: actions/cache@v3
+        with:
+          path: ${{  steps.pnpm-store-unix.outputs.pnpm-store }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
-    - name: Check Format
-      run: pnpm check:format
+      - name: Cache pnpm modules
+        if: steps.pnpm-store-windows.outcome == 'success'
+        uses: actions/cache@v3
+        with:
+          path: ${{  steps.pnpm-store-windows.outputs.pnpm-store }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
-    - name: Test
-      run: pnpm check:test
+      - name: pnpm install
+        run: pnpm install -r
+
+      - name: Build
+        run: pnpm build
+
+      - name: Test
+        id: test
+        run: pnpm ci:test
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        if: (success() || failure()) && steps.test.outcome != 'skipped' && steps.test.outcome != 'cancelled'
+        with:
+          name: test-results-${{ matrix.runs-on }}
+          path: reports/jest-junit.xml
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-${{ matrix.runs-on }}
+          path: coverage
+
+      - name: Check Coverage Report
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ github.token }}
+          coverage_path: coverage/clover.xml
+          threshold_alert: 70
+          threshold_warning: 80
+          threshold_metric: statements

@@ -1,3 +1,5 @@
 node_modules/
 packages/*/node_modules/
 packages/*/lib/
+megalinter-reports/
+pnpm-lock.yaml

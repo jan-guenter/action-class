@@ -1,31 +1,66 @@
 {
   "name": "root",
+  "author": {
+    "name": "Jan Günter",
+    "email": "jan.guenter@googlemail.com"
+  },
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "packageManager": "pnpm@8.2.0",
   "engines": {
-    "pnpm": ">=8"
+    "pnpm": ">=8",
+    "node": ">=16"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "scripts": {
     "build": "pnpm run -r tsc",
     "check:all": "pnpm run '/^check:(?!all)/'",
     "check:tsc": "pnpm run build --noEmit",
-    "format": "prettier --write packages/**/*.ts",
-    "check:format": "prettier --check packages/**/*.ts",
-    "check:lint": "eslint packages/**/*.ts",
-    "lint-fix": "eslint packages/**/*.ts --fix",
-    "check:test": "jest --testTimeout 10000"
+    "format": "prettier --write .",
+    "check:format": "prettier --check .",
+    "check:eslint": "pnpm run eslint",
+    "eslint": "eslint packages/**/*.{ts,mts}",
+    "eslint:fix": "eslint packages/**/*.{ts,mts} --fix",
+    "_jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "check:test": "pnpm run _jest",
+    "ci:test": "pnpm run check:test --ci --coverage --reporters=default --reporters=jest-junit",
+    "_megalinter": "mega-linter-runner --remove-container -f javascript --env 'CLEAR_REPORT_FOLDER=true'",
+    "megalinter": "pnpm run _megalinter --env 'APPLY_FIXES=none'",
+    "megalinter:fix": "pnpm run _megalinter --fix --env 'APPLY_FIXES=all'",
+    "megalinter:incremental": "pnpm run megalinter --filesonly"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.0",
-    "@types/node": "^16.18.23",
+    "@jest/globals": "^29.5.0",
+    "@types/eslint": "^8.37.0",
+    "@types/node": "~16.18.23",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.38.0",
-    "eslint-plugin-github": "^4.7.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jest": "^27.2.1",
+    "glob": "^7.2.3",
     "jest": "^29.5.0",
+    "jest-junit": "^16.0.0",
+    "mega-linter-runner": "^6.22.2",
     "prettier": "^2.8.7",
     "ts-jest": "^29.1.0",
+    "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.0.4"
+  },
+  "jest-junit": {
+    "outputDirectory": "reports",
+    "outputName": "jest-junit.xml",
+    "ancestorSeparator": " › ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
   }
 }
