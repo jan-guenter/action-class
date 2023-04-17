@@ -42,7 +42,7 @@ jobs:
         if: runner.os == 'Linux' || runner.os == 'macOS'
         id: pnpm-store-unix
         shell: bash
-        run: echo "pnpm-store=$(pnpm store path)" >> "$GITHUB_OUTPUT"        
+        run: echo "pnpm-store=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
       - name: Determine pnpm store location
         if: runner.os == 'Windows'
