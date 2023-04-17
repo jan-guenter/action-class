@@ -18,6 +18,11 @@ concurrency:
 permissions:
   contents: write
   pull-requests: write
+  checks: write
+  security-events: write
+  issues: write
+  statuses: write
+  discussions: write
 
 jobs:
   build:
@@ -26,6 +31,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
 
       - name: MegaLinter
         id: ml
@@ -50,7 +57,7 @@ jobs:
           env.APPLY_FIXES_MODE == 'pull_request' &&
           (github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository) &&
           !contains(github.event.head_commit.message, 'skip fix')
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           commit-message: '[MegaLinter] Apply linters automatic fixes'

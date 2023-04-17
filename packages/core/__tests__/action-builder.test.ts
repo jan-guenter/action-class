@@ -28,11 +28,7 @@ describe('action-builder', () => {
   });
 
   test('has correct actionInfo with author', () => {
-    class TestAction extends actionBuilder()
-      .name('name')
-      .description('description')
-      .author('author')
-      .build() {
+    class TestAction extends actionBuilder().name('name').description('description').author('author').build() {
       async main(): Promise<void> {
         return;
       }

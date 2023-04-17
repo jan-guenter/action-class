@@ -158,7 +158,7 @@ export class ExampleAction extends action({
 All input values are evaluated before the `main` method is called and stored in a readonly `inputs` property of the
 action class. The `inputs` property is an object with the same keys as the `inputs` property of the `ActionOptions`.
 All validations for required inputs and input values are performed during this initialization and error messages are
-produced if any of the validations fail. If an input marked as deprecated, but a value is supplied by the user, a 
+produced if any of the validations fail. If an input marked as deprecated, but a value is supplied by the user, a
 warning message will be produced.
 
 All output values are stored in a readonly `outputs` property of the action class. The `outputs` property is an object

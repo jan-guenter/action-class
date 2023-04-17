@@ -8,7 +8,14 @@ on:
     paths-ignore:
       - '**.md'
 
-permissions: read-all
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  statuses: write
+  security-events: write
+  discussions: write
+  issues: write
 
 jobs:
   build:
@@ -34,11 +41,13 @@ jobs:
       - name: Determine pnpm store location
         if: runner.os == 'Linux' || runner.os == 'macOS'
         id: pnpm-store-unix
+        shell: bash
         run: echo "pnpm-store=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
       - name: Determine pnpm store location
         if: runner.os == 'Windows'
         id: pnpm-store-windows
+        shell: pwsh
         run: |
           $pnpmStorePath=pnpm store path
           Add-Content -Path "$env:GITHUB_OUTPUT" -Value "pnpm-store=$pnpmStorePath"
@@ -88,6 +97,7 @@ jobs:
         uses: slavcodev/coverage-monitor-action@v1
         with:
           github_token: ${{ github.token }}
+          status_context: Coverage Report - ${{ matrix.runs-on }}
           coverage_path: coverage/clover.xml
           threshold_alert: 70
           threshold_warning: 80
