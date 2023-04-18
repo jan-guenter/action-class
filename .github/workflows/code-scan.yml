@@ -75,8 +75,7 @@ jobs:
       - name: Run njsscan scan
         uses: ajinabraham/njsscan-action@v7
         with:
-          args:
-            packages/*/lib/*.js
+          args: packages/*/lib/*.js
             --sarif
             --output njsscan-results.sarif
         continue-on-error: true

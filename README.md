@@ -23,6 +23,7 @@ A framework for creating GitHub Actions in TypeScript.
 [![Downloads](https://img.shields.io/npm/dt/@action-class/core?logo=npm)](https://www.npmjs.com/package/@action-class/core)
 [![License](https://img.shields.io/npm/l/@action-class/core)](packages/core/LICENSE)
 
+<!-- markdown-link-check-disable-next-line -->
 [![Dependencies](https://img.shields.io/librariesio/release/npm/@action-class/core?logo=npm)](https://libraries.io/npm/@action-class%2Fcore/tree)
 ![Dependents](https://img.shields.io/librariesio/dependents/npm/@action-class/core?logo=npm)
 [![SourceRank](https://img.shields.io/librariesio/sourcerank/npm/@action-class/core)](https://libraries.io/npm/@action-class%2Fcore/sourcerank)
@@ -39,6 +40,7 @@ A type library for reading and writing `action.yml` files.
 [![Downloads](https://img.shields.io/npm/dt/@action-class/action-yml?logo=npm)](https://www.npmjs.com/package/@action-class/action-yml)
 [![License](https://img.shields.io/npm/l/@action-class/action-yml)](packages/core/LICENSE)
 
+<!-- markdown-link-check-disable-next-line -->
 [![Dependencies](https://img.shields.io/librariesio/release/npm/@action-class/action-yml?logo=npm)](https://libraries.io/npm/@action-class%2Faction-yml/tree)
 ![Dependents](https://img.shields.io/librariesio/dependents/npm/@action-class/action-yml?logo=npm)
 [![SourceRank](https://img.shields.io/librariesio/sourcerank/npm/@action-class/action-yml?logo=npm)](https://libraries.io/npm/@action-class%2Faction-yml/sourcerank)

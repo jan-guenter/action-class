@@ -13,6 +13,9 @@
     "**/*.svg",
     "packages/*/lib/**",
     "packages/*/__tests__/**",
-    "packages/example-action/src/**"
+    "packages/example-action/src/**",
+    "megalinter-reports/**",
+    "coverage/**",
+    "reports/**"
   ]
 }
