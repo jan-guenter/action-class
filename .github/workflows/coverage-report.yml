@@ -1,0 +1,56 @@
+name: Coverage Report
+on:
+  workflow_run:
+    workflows: [Build and Test]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  statuses: write
+
+jobs:
+  report:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Download Coverage Report
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id,
+            });
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "coverage-${{ matrix.runs-on }}"
+            })[0];
+            let download = await github.rest.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: matchArtifact.id,
+              archive_format: 'zip',
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/coverage.zip`, Buffer.from(download.data));
+
+      - name: Unzip artifact
+        run: unzip coverage.zip
+
+      - name: Check Coverage Report
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ github.token }}
+          status_context: Coverage Report - ${{ matrix.runs-on }}
+          comment_context: Coverage Report - ${{ matrix.runs-on }}
+          comment_footer: false
+          coverage_path: clover.xml
+          threshold_alert: 70
+          threshold_warning: 80
+          threshold_metric: statements

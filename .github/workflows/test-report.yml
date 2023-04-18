@@ -1,13 +1,14 @@
-name: 'Test Report'
+name: Test Report
 on:
   workflow_run:
-    workflows: ['Build and Test']
+    workflows: [Build and Test]
     types:
       - completed
 
 permissions:
   contents: read
   checks: write
+  statuses: write
 
 jobs:
   report:

@@ -10,7 +10,7 @@
     "github",
     "actions"
   ],
-  "homepage": "https://github.com/jan-guenter/actions-class/tree/main/packages/core",
+  "homepage": "https://github.com/jan-guenter/action-class/tree/main/packages/core",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jan-guenter/actions-class.git",
+    "url": "https://github.com/jan-guenter/action-class.git",
     "directory": "packages/core"
   },
   "scripts": {
@@ -39,7 +39,7 @@
     "tsc": "tsc"
   },
   "bugs": {
-    "url": "https://github.com/jan-guenter/actions-class/issues"
+    "url": "https://github.com/jan-guenter/action-class/issues"
   },
   "dependencies": {
     "@action-class/action-yml": "workspace:^",
