@@ -1,4 +1,4 @@
-name: "Code Scan"
+name: Code Scan
 
 on:
   push:
@@ -13,14 +13,15 @@ on:
   schedule:
     - cron: '42 13 * * 6'
 
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
 
     steps:
       - name: Checkout repository
@@ -58,7 +59,7 @@ jobs:
           category: /language:javascript
 
       - name: Install ESLint
-        run: pnpm install @microsoft/eslint-formatter-sarif
+        run: pnpm install -w @microsoft/eslint-formatter-sarif
 
       - name: Run ESLint
         run: pnpm eslint
