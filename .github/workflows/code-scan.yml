@@ -72,7 +72,7 @@ jobs:
           sarif_file: eslint-results.sarif
 
       - name: Run njsscan scan
-        uses: ajinabraham/njsscan-action@7
+        uses: ajinabraham/njsscan-action@v7
         with:
           args:
             packages/*/lib/*.js
