@@ -8,14 +8,7 @@ on:
     paths-ignore:
       - '**.md'
 
-permissions:
-  contents: read
-  pull-requests: write
-  checks: write
-  statuses: write
-  security-events: write
-  discussions: write
-  issues: write
+permissions: read-all
 
 jobs:
   build:
@@ -92,13 +85,3 @@ jobs:
         with:
           name: coverage-${{ matrix.runs-on }}
           path: coverage
-
-      - name: Check Coverage Report
-        uses: slavcodev/coverage-monitor-action@v1
-        with:
-          github_token: ${{ github.token }}
-          status_context: Coverage Report - ${{ matrix.runs-on }}
-          coverage_path: coverage/clover.xml
-          threshold_alert: 70
-          threshold_warning: 80
-          threshold_metric: statements

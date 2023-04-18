@@ -1,0 +1,37 @@
+name: 'Coverage Report'
+on:
+  workflow_run:
+    workflows: ['Build and Test']
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+  statuses: write
+
+jobs:
+  report:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Download Coverage Report
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-${{ matrix.runs-on }}
+          path: coverage
+      - name: Check Coverage Report
+        uses: slavcodev/coverage-monitor-action@v1
+        with:
+          github_token: ${{ github.token }}
+          status_context: Coverage Report - ${{ matrix.runs-on }}
+          comment_context: Coverage Report - ${{ matrix.runs-on }}
+          comment_footer: false
+          coverage_path: coverage/clover.xml
+          threshold_alert: 70
+          threshold_warning: 80
+          threshold_metric: statements
