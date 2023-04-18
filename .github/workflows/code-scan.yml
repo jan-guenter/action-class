@@ -2,8 +2,6 @@ name: Code Scan
 
 on:
   push:
-    branches:
-      - main
     paths-ignore:
       - '**.md'
   pull_request:
@@ -65,6 +63,7 @@ jobs:
         run: pnpm eslint
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-results.sarif
+          || true
         continue-on-error: true
 
       - name: Upload eslint results to GitHub
