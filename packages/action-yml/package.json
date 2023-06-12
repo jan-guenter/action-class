@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "@types/feather-icons": "^4.29.1",
-    "@types/node": "~16.18.23"
+    "@types/node": "~16.18.35"
   }
 }
