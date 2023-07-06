@@ -49,7 +49,7 @@
     "jest": "^29.5.0",
     "jest-junit": "^16.0.0",
     "mega-linter-runner": "^6.22.2",
-    "prettier": "^2.8.7",
+    "prettier": "^3.0.0",
     "ts-jest": "^29.1.0",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.0.4"
