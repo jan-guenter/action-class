@@ -47,6 +47,6 @@
     "@action-class/core": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "~16.18.23"
+    "@types/node": "~16.18.39"
   }
 }
