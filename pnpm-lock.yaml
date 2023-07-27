@@ -44,8 +44,8 @@ importers:
         specifier: ^16.0.0
         version: 16.0.0
       mega-linter-runner:
-        specifier: ^6.22.2
-        version: 6.22.2(glob@7.2.3)
+        specifier: ^7.2.1
+        version: 7.2.1(glob@7.2.3)
       prettier:
         specifier: ^2.8.7
         version: 2.8.7
@@ -2086,6 +2086,7 @@ packages:
 
   /debuglog@1.0.1:
     resolution: {integrity: sha512-syBZ+rnAK3EgMsH2aYEOLUW7mZSY9Gb+0wUMCFsZvcmiz+HigA0LOcq/HoQqVuGG+EKykunc7QG2bzrponfaSw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     dev: true
 
   /dedent@0.7.0:
@@ -4117,8 +4118,8 @@ packages:
       tmpl: 1.0.5
     dev: true
 
-  /mega-linter-runner@6.22.2(glob@7.2.3):
-    resolution: {integrity: sha512-Gp8k5ZnkgpJEIdFCuYORO4e7PdsYI+tol8tLYLwmVaWTWCdupCsW3uUCpOERAYzmVwSg2OjY41NRotRcFAG0Cg==}
+  /mega-linter-runner@7.2.1(glob@7.2.3):
+    resolution: {integrity: sha512-Jh508Ce7KOFcIf/pAqNtmVd969oiEJl87oKtB/3djtqBOBMs5fxcyy2y81p278miV8REHlD9olX8aynREmZ6iw==}
     hasBin: true
     dependencies:
       chalk: 4.1.2
